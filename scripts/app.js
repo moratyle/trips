@@ -1,52 +1,29 @@
 'use strict'
 
-let trips = []
+let trips = getSavedTrips()
 
 const filters = {
     searchText: '',
-    hidePastTrips: false
-}
-
-//check for existing saved data
-const tripsJSON = localStorage.getItem('myTrips')
-
-if (tripsJSON !== null) {
-    trips = JSON.parse(tripsJSON)
-}
-
-//render DOM elements
-const renderDOM = (trips, filters) => {
-    const filteredTrips = trips.filter((trip) => {
-        const searchTextMatch = trip.title.toLowerCase().includes(filters.searchText.toLowerCase())
-        const hidePastMatch = filters.hidePastTrips || !trip.status
-
-        return searchTextMatch && hidePastMatch
-    })
-
-    document.querySelector('#trips').innerHTML = ''
-
-    filteredTrips.forEach((trip) => {
-        const tripEl = document.createElement('p')
-
-        if (trip.title.length > 0) {
-            tripEl.textContent = trip.title
-        } else {
-            tripEl.textContent = 'Unnamed note'
-        }
-        document.querySelector('#trips').appendChild(tripEl)
-    })
+    hidePastTrips: false,
+    sortBy: 'byEdited'
 }
 
 renderDOM(trips, filters)
 
 //create trip button
 document.querySelector('#create-trip').addEventListener('click', (e) => {
+    const id = uuidv4()
+    const timestamp = moment().valueOf()
     trips.push({
+        id: id,
         title: '',
-        body: ''
+        body: '',
+        visited: false,
+        createdAt: timestamp,
+        updatedAt: timestamp
     })
-    localStorage.setItem('myTrips', JSON.stringify(trips))
-    renderDOM(trips, filters)
+    saveTrips(trips)
+    location.assign(`/edit.html#${id}`)
 })
 
 //filter: search text
@@ -63,5 +40,14 @@ document.querySelector('#past-trips').addEventListener('change', (e) => {
 
 //filter: catagories
 document.querySelector('#filter-by').addEventListener('change', (e) => {
-    console.log(e.target.value)
+    filters.sortBy = e.target.value
+    renderDOM(trips, filters)
+})
+
+//update changes across tabs/windows
+window.addEventListener('storage', (e) => {
+    if (e.key == 'myTrips') {
+        trips = JSON.parse(e.newValue)
+        renderDOM(trips, filters)
+    }
 })
