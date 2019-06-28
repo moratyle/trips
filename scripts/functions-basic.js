@@ -95,8 +95,14 @@ const renderDOM = (trips, filters) => {
 
     document.querySelector('#trips').innerHTML = ''
 
-    filteredTrips.forEach((trip) => {
-        const tripEl = generateTripDOM(trip)
-        document.querySelector('#trips').appendChild(tripEl)
-    })
+    //add trips to DOM
+    if (filteredTrips.length > 0) {
+        filteredTrips.forEach((trip) => document.querySelector('#trips').appendChild(generateTripDOM(trip)))
+        //write message if no user trips
+    } else {
+        const msgEl = document.createElement('p')
+        msgEl.classList.add('empty-message')
+        msgEl.textContent = 'You have no upcomming trips'
+        document.querySelector('#trips').appendChild(msgEl)
+    }
 }

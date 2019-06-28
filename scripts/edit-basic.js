@@ -5,6 +5,7 @@ let removeEl = document.querySelector('#remove-trip')
 let visitedEl = document.querySelector('#visited')
 
 const tripId = location.hash.substring(1)
+
 let trips = getSavedTrips()
 let trip = trips.find(function (trip) {
     return trip.id === tripId
@@ -44,17 +45,22 @@ visitedEl.addEventListener('change', (e) => {
     saveTrips(trips)
 })
 
+//check state of checkbox
+const checkVisit = document.querySelector('#visited')
+trip.visited == true ? checkVisit.checked = true : checkVisit.checked = false
 
-//check if trip has been visited and mark it accordingly
-let checkVisit = document.querySelector('#visited')
 
-if (trip.visited == true) {
-    console.log('true')
-    checkVisit.checked = true
-} else {
-    console.log('false')
-    checkVisit.checked = false
-}
+
+
+
+
+
+
+
+
+
+
+
 
 //update changes across tabs/windows
 window.addEventListener('storage', (e) => {
@@ -72,7 +78,3 @@ window.addEventListener('storage', (e) => {
         bodyEl.value = trip.body
     }
 })
-
-// testing
-let testCheck = document.querySelector('#checkbox')
-testCheck.checked = true

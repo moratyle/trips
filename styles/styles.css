@@ -195,9 +195,7 @@ a {
 }
 
 
-/* testing */
-.check {
-    margin-top: 100px;
-    display: flex;
-    justify-content: center
+/* todos */
+#todos{
+    margin-top: 50px;
 }
