@@ -44,6 +44,18 @@ visitedEl.addEventListener('change', (e) => {
     saveTrips(trips)
 })
 
+
+//check if trip has been visited and mark it accordingly
+let checkVisit = document.querySelector('#visited')
+
+if (trip.visited == true) {
+    console.log('true')
+    checkVisit.checked = true
+} else {
+    console.log('false')
+    checkVisit.checked = false
+}
+
 //update changes across tabs/windows
 window.addEventListener('storage', (e) => {
     if (e.key === 'myTrips') {
@@ -60,3 +72,7 @@ window.addEventListener('storage', (e) => {
         bodyEl.value = trip.body
     }
 })
+
+// testing
+let testCheck = document.querySelector('#checkbox')
+testCheck.checked = true

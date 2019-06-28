@@ -27,30 +27,22 @@ const removeTrip = (id) => {
 }
 //generate DOM structure for a trip
 const generateTripDOM = (trip) => {
-    const tripEl = document.createElement('div')
-    const textEl = document.createElement('a')
-    const button = document.createElement('button')
-    const link = document.createElement('a')
+    const tripEl = document.createElement('a')
+    const textEl = document.createElement('p')
 
-    //setup remove button
-    button.textContent = 'x'
-    tripEl.appendChild(button)
-    button.addEventListener('click', () => {
-        removeTrip(trip.id)
-        saveTrips(trips)
-        renderDOM(trips, filters)
-    })
 
-    //setup trip title
+    // Setup the note title text
     if (trip.title.length > 0) {
         textEl.textContent = trip.title
     } else {
-        textEl.textContent = 'Unnamed trip'
+        textEl.textContent = 'Unnamed note'
     }
-    textEl.setAttribute('href', `/edit.html#${trip.id}`)
+    textEl.classList.add('list-item__title')
     tripEl.appendChild(textEl)
 
-
+    //setup link
+    tripEl.setAttribute('href', `/edit.html#${trip.id}`)
+    tripEl.classList.add('list-item')
 
     return tripEl
 }
@@ -97,7 +89,7 @@ const renderDOM = (trips, filters) => {
     trips = sortTrips(trips, filters.sortBy)
     const filteredTrips = trips.filter((trip) => {
         const searchTextMatch = trip.title.toLowerCase().includes(filters.searchText.toLowerCase())
-        const hidePastMatch = filters.hidePastTrips || !trip.status
+        const hidePastMatch = filters.hidePastTrips || !trip.visited
         return searchTextMatch && hidePastMatch
     })
 

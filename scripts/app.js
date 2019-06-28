@@ -51,3 +51,4 @@ window.addEventListener('storage', (e) => {
         renderDOM(trips, filters)
     }
 })
+

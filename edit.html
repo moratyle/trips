@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Edit Trips</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+
 </head>
 
 <body>
@@ -25,13 +27,18 @@
     </div>
 
     <div class="container">
-        <input class="title-input" id="trip-title" placeholder="trip Title" type="text">
-        <textarea class="body-input" id="trip-body" placeholder="Enter trip text"></textarea>
+        <input class="title-input" id="trip-title" placeholder="Trip Name" type="text">
+        <textarea class="body-input" id="trip-body" placeholder="Notes"></textarea>
         <button class="button button--secondary" id="remove-trip">Remove trip</button>
+
+        <label type="checkbox">Mark as visited
+            <input id="visited" type="checkbox">
+        </label>
     </div>
 
-    <label type="checkbox">Mark as visited
-        <input id="visited" type="checkbox" autocomplete="off">
+    <!-- testing -->
+    <label class="check" type="checkbox">testing
+        <input id="checkbox" type="checkbox">
     </label>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
